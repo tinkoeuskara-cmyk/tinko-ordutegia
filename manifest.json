@@ -2,7 +2,7 @@
   "name": "Ordu-erregistroa — Tinko",
   "short_name": "Tinko Orduak",
   "description": "Tinko Euskara Elkarteako taldearen lanaldiaren erregistroa",
-  "start_url": "/",
+  "start_url": "/tinko-ordutegia/",
   "display": "standalone",
   "background_color": "#0f0f1a",
   "theme_color": "#0f0f1a",
@@ -22,5 +22,9 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["productivity", "utilities"]
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
+  "scope": "/tinko-ordutegia/"
 }
