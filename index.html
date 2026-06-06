@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f0f1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Ordu-erregistroa — Tinko</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- ── SAIO-HASIERA ─────────────────────────────────── -->
+<div id="pantaila-login" class="pantaila aktibo">
+  <div class="login-edukiontzia">
+    <div class="logo-area">
+      <img src="icons/icon-192.png" alt="Tinko logoa" class="logo-img">
+      <h1>Tinko</h1>
+      <p class="azpitituua">Ordu-erregistroa</p>
+    </div>
+
+    <div class="form-taldea">
+      <label>Nor zara?</label>
+      <div class="pertsonaia-hautatzailea" id="pertsonaia-hautatzailea">
+        <button class="btn-pertsonaia" data-pertsonaia="inigo">Iñigo</button>
+        <button class="btn-pertsonaia" data-pertsonaia="nerea">Nerea</button>
+        <button class="btn-pertsonaia" data-pertsonaia="naia">Naia</button>
+        <button class="btn-pertsonaia" data-pertsonaia="jaione">Jaione</button>
+      </div>
+    </div>
+
+    <div class="form-taldea" id="taldea-pin" style="display:none">
+      <label>PIN kodea</label>
+      <input type="password" inputmode="numeric" maxlength="4" id="sarrera-pin"
+             placeholder="····" class="sarrera-pin">
+      <p class="oharra">4 digituko PINa</p>
+    </div>
+
+    <button class="btn-nagusia" id="btn-sartu" disabled>Sartu</button>
+
+    <p class="setup-esteka" id="setup-esteka" style="display:none">
+      <a href="#" id="esteka-pin-aldatu">PINa aldatu</a>
+    </p>
+  </div>
+</div>
+
+<!-- ── PANTAILA NAGUSIA ─────────────────────────────── -->
+<div id="pantaila-nagusia" class="pantaila">
+
+  <header class="app-goiburua">
+    <div class="goiburu-info">
+      <span id="goiburu-izena">—</span>
+      <span id="goiburu-data" class="goiburu-data">—</span>
+    </div>
+    <div class="goiburu-ekintzak">
+      <button class="btn-ikonoa" id="btn-ezarpenak" title="Ezarpenak">⚙️</button>
+    </div>
+  </header>
+
+  <!-- Egungo egoera -->
+  <div class="egoera-txartela" id="egoera-txartela">
+    <div class="egoera-etiketa" id="egoera-etiketa">Erregistratu gabe</div>
+    <div class="egoera-ordua" id="egoera-ordua">—</div>
+    <div class="egoera-kokapena" id="egoera-kokapena"></div>
+    <div class="egoera-iraupena" id="egoera-iraupena"></div>
+  </div>
+
+  <!-- Kokapen-hautatzailea -->
+  <div class="sekzioa" id="sekzioa-kokapena">
+    <label class="sekzioa-etiketa">Non zaude gaur?</label>
+    <div class="kokapen-hautatzailea">
+      <button class="btn-kokapena" data-kokapena="etxea">
+        🏠<span>Etxea</span>
+      </button>
+      <button class="btn-kokapena" data-kokapena="zinema">
+        🎬<span>Zinema</span>
+      </button>
+      <button class="btn-kokapena" data-kokapena="bulegoa">
+        🏢<span>Bulegoa</span>
+      </button>
+    </div>
+
+    <!-- Udalerria (zinemarako soilik) -->
+    <div id="taldea-udalerria" style="display:none" class="taldea-udalerria">
+      <label class="sekzioa-etiketa">Zein udalerrira?</label>
+      <div class="udalerria-sarrera-bilgarria">
+        <input type="text" id="sarrera-udalerria" placeholder="Udalerria idatzi..."
+               class="sarrera-testua" autocomplete="off">
+        <div id="udalerri-iradokizunak" class="iradokizun-zerrenda"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ekintza-botoiak -->
+  <div class="sekzioa" id="sekzioa-ekintzak">
+    <div class="ekintza-botoiak">
+      <button class="btn-ekintza btn-sarrera" id="btn-sarrera" disabled>
+        <span class="btn-ekintza-ikonoa">▶</span>
+        <span class="btn-ekintza-testua">Sarrera</span>
+        <span class="btn-ekintza-azpia">Lanaldiaren hasiera</span>
+      </button>
+
+      <div class="bigarren-botoiak">
+        <button class="btn-ekintza btn-atsedena" id="btn-atsedena" disabled>
+          <span class="btn-ekintza-ikonoa">⏸</span>
+          <span class="btn-ekintza-testua">Atsedena</span>
+        </button>
+        <button class="btn-ekintza btn-atseden-bukaera" id="btn-atseden-bukaera" disabled style="display:none">
+          <span class="btn-ekintza-ikonoa">▶</span>
+          <span class="btn-ekintza-testua">Itzuli</span>
+        </button>
+      </div>
+
+      <button class="btn-ekintza btn-irteera" id="btn-irteera" disabled>
+        <span class="btn-ekintza-ikonoa">⏹</span>
+        <span class="btn-ekintza-testua">Irteera</span>
+        <span class="btn-ekintza-azpia">Lanaldiaren bukaera</span>
+      </button>
+
+      <button class="btn-ekintza btn-lanaldia-berriz" id="btn-lanaldia-berriz" style="display:none">
+        <span class="btn-ekintza-ikonoa">🔄</span>
+        <span class="btn-ekintza-testua">Lanaldia berriz hasi</span>
+        <span class="btn-ekintza-azpia">Bigarren txanda</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Iruzkina -->
+  <div class="sekzioa" id="sekzioa-iruzkina">
+    <label class="sekzioa-etiketa">Iruzkinak (aukerakoa)</label>
+    <textarea id="sarrera-iruzkina" class="sarrera-area"
+              placeholder="Ohar bat gehitu behar baduzu..." rows="2"></textarea>
+  </div>
+
+  <!-- Azken erregistroak -->
+  <div class="sekzioa">
+    <div class="sekzioa-goiburua">
+      <label class="sekzioa-etiketa">Azken erregistroak</label>
+      <button class="btn-esteka" id="btn-dena-ikusi">Dena ikusi</button>
+    </div>
+    <div id="historia-laburra" class="historia-zerrenda">
+      <p class="daturik-ez">Kargatzen...</p>
+    </div>
+  </div>
+
+  <!-- Asteko laburpena -->
+  <div class="sekzioa">
+    <label class="sekzioa-etiketa">Aste honetan</label>
+    <div class="aste-laburpena" id="aste-laburpena">
+      <div class="aste-elementua">
+        <span class="aste-balioa" id="aste-orduak">—</span>
+        <span class="aste-etiketa">erregistratutako orduak</span>
+      </div>
+      <div class="aste-elementua">
+        <span class="aste-balioa" id="aste-egunak">—</span>
+        <span class="aste-etiketa">lan-egunak</span>
+      </div>
+      <div class="aste-elementua">
+        <span class="aste-balioa" id="aste-balantzea">—</span>
+        <span class="aste-etiketa">balantzea</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── EZARPEN-PANELA ────────────────────────────────── -->
+<div id="panel-ezarpenak" class="alboko-panela">
+  <div class="panel-goiburua">
+    <h2>Ezarpenak</h2>
+    <button class="btn-itxi" id="btn-ezarpenak-itxi">✕</button>
+  </div>
+
+  <div class="panel-gorputza">
+    <div class="ezarpen-taldea">
+      <label>Sarrerako gogorarazpenaren ordua</label>
+      <input type="time" id="ezarpen-gogorarazpen-ordua" value="09:00" class="sarrera-ordua">
+    </div>
+
+    <div class="ezarpen-taldea">
+      <label>Udalerri ohikoenak</label>
+      <p class="oharra">Sarri joaten zaren udalerriak gehitu</p>
+      <div id="udalerri-zerrenda" class="udalerri-etiketak"></div>
+      <div class="udalerri-berria">
+        <input type="text" id="udalerri-berria" class="sarrera-testua" placeholder="Udalerriaren izena">
+        <button class="btn-bigarrena" id="btn-udalerria-gehitu">Gehitu</button>
+      </div>
+    </div>
+
+    <div class="ezarpen-taldea">
+      <label>Nire PINa</label>
+      <input type="password" inputmode="numeric" maxlength="4" id="ezarpen-pin-zaharra"
+             placeholder="PIN zaharra" class="sarrera-pin-ttikia">
+      <input type="password" inputmode="numeric" maxlength="4" id="ezarpen-pin-berria"
+             placeholder="PIN berria (4 digitu)" class="sarrera-pin-ttikia" style="margin-top:8px">
+      <button class="btn-bigarrena" id="btn-pin-aldatu" style="margin-top:8px">PINa aldatu</button>
+    </div>
+
+    <button class="btn-nagusia" id="btn-ezarpenak-gorde">Ezarpenak gorde</button>
+    <button class="btn-arriskutsua" id="btn-saioa-itxi">Saioa itxi</button>
+  </div>
+</div>
+
+<!-- ── HISTORIA OSOA ─────────────────────────────────── -->
+<div id="pantaila-historia" class="pantaila">
+  <header class="app-goiburua">
+    <button class="btn-ikonoa" id="btn-historia-itzuli">← Itzuli</button>
+    <span class="goiburu-titulua">Nire historia</span>
+    <div></div>
+  </header>
+
+  <div class="historia-iragazkiak">
+    <select id="iragazki-hilabetea" class="hautaketa-iragazkia"></select>
+  </div>
+
+  <div id="historia-osoa" class="historia-osoa"></div>
+</div>
+
+<!-- ── TOAST JAKINARAZPENAK ──────────────────────────── -->
+<div id="toast" class="toast"></div>
+
+<!-- ── OVERLAY ───────────────────────────────────────── -->
+<div id="overlay" class="overlay"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
