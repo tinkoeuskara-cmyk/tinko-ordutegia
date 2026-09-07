@@ -4,7 +4,7 @@
 // ============================================================
 
 const CFG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbxFfUO7WD18s9isrgswuTCe_BEsvCwua92P8WOF5zEnlOZPehdTUTTPl9g5B8mbH_Nz5g/exec',
+  API_URL: 'https://script.google.com/macros/s/AKfycbznq2o9hnsJNpwNbXwiiQ2lTSU25TCzauyP6VBKXXO9nT3nl23r1SYhxu4ae4NPP6SvPw/exec',
 
   PERTSONAIAK: {
     inigo:  { izena: 'Iñigo' },
